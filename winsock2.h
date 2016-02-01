@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <string.h>
+
 typedef int SOCKET;
 
 int send(SOCKET, char const*, int, int);
