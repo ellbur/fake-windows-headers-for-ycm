@@ -43,6 +43,7 @@ typedef wchar_t *LPWSTR;
 #define __w64
 
 #define __stdcall
+#define APIENTRY
 
 #define _In_
 #define _In_opt_
@@ -272,4 +273,63 @@ errno_t _mbscat_s(
    const unsigned char *strSource 
 ); // C++ only
 #endif
+
+#define _MAX_PATH 1024
+
+wchar_t *_wgetenv( 
+   const wchar_t *varname 
+);
+
+int _snprintf_s(
+   char *buffer,
+   size_t sizeOfBuffer,
+   size_t count,
+   const char *format,
+   ...
+);
+int _snprintf_s_l(
+   char *buffer,
+   size_t sizeOfBuffer,
+   size_t count,
+   const char *format,
+   locale_t locale,
+   ...
+);
+int _snwprintf_s(
+   wchar_t *buffer,
+   size_t sizeOfBuffer,
+   size_t count,
+   const wchar_t *format,
+   ...
+);
+int _snwprintf_s_l(
+   wchar_t *buffer,
+   size_t sizeOfBuffer,
+   size_t count,
+   const wchar_t *format,
+   locale_t locale,
+   ...
+);
+
+#ifdef __cplusplus
+template <size_t size>
+int _snprintf_s(
+   char (&buffer)[size],
+   size_t count,
+   const char *format,
+   ...
+); // C++ only
+
+template <size_t size>
+int _snwprintf_s(
+   wchar_t (&buffer)[size],
+   size_t count,
+   const wchar_t *format,
+   ...
+); // C++ only
+#endif
+
+typedef int WORD;
+
+#define MAKEWORD(x, y) 0
 

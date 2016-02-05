@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include "windows.h"
+
 #include <string.h>
 
 typedef int SOCKET;
@@ -43,4 +45,16 @@ struct sockaddr {
 int connect(SOCKET, struct sockaddr *, size_t);
 
 void ioctlsocket(SOCKET, int, void*);
+
+typedef void* WSADATA;
+typedef WSADATA *LPWSADATA;
+
+int WSAStartup(
+  _In_  WORD      wVersionRequested,
+  _Out_ LPWSADATA lpWSAData
+);
+
+#define _CRTDBG_ALLOC_MEM_DF 0
+#define _CRTDBG_LEAK_CHECK_DF 0
+
 
