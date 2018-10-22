@@ -17,8 +17,12 @@ typedef wchar_t TCHAR;
 typedef char TCHAR;
 #endif
 
+
+typedef const void* LPCVOID;
+
 typedef bool BOOL;
 typedef long LONG;
+typedef unsigned long u_long;
 
 typedef TCHAR const* LPCTSTR;
 typedef TCHAR * LPTSTR;
@@ -50,6 +54,10 @@ typedef wchar_t *LPWSTR;
 #define _Out_
 #define _Out_opt_
 #define WINAPI
+#define __in
+#define __out
+
+#define MAX_PATH 256
 
 HANDLE CreateMutex(void*, bool, void*);
 uintptr_t _beginthread(void(*start_address)(void *), unsigned, void*);
@@ -68,7 +76,7 @@ uintptr_t _beginthreadex(
    unsigned ( __stdcall *start_address )( void * ),
    void *arglist,
    unsigned initflag,
-   unsigned *thrdaddr 
+   unsigned *thrdaddr
 );
 
 void Sleep(int);
@@ -153,7 +161,7 @@ template <size_t size>
 int sprintf_s(
    char (&buffer)[size],
    const char *format,
-   ... 
+   ...
 ); // C++ only
 
 template <size_t size>
@@ -167,57 +175,57 @@ int swprintf_s(
 errno_t strcpy_s(
    char *strDestination,
    size_t numberOfElements,
-   const char *strSource 
+   const char *strSource
 );
 
 errno_t wcscpy_s(
    wchar_t *strDestination,
    size_t numberOfElements,
-   const wchar_t *strSource 
+   const wchar_t *strSource
 );
 
 errno_t _mbscpy_s(
    unsigned char *strDestination,
    size_t numberOfElements,
-   const unsigned char *strSource 
+   const unsigned char *strSource
 );
 
 #ifdef __cplusplus
 template <size_t size>
 errno_t strcpy_s(
    char (&strDestination)[size],
-   const char *strSource 
+   const char *strSource
 ); // C++ only
 
 template <size_t size>
 errno_t wcscpy_s(
    wchar_t (&strDestination)[size],
-   const wchar_t *strSource 
+   const wchar_t *strSource
 ); // C++ only
 
 template <size_t size>
 errno_t _mbscpy_s(
    unsigned char (&strDestination)[size],
-   const unsigned char *strSource 
+   const unsigned char *strSource
 ); // C++ only
 #endif
 
-errno_t fopen_s( 
+errno_t fopen_s(
    FILE** pFile,
    const char *filename,
-   const char *mode 
+   const char *mode
 );
 
 errno_t _wfopen_s(
    FILE** pFile,
    const wchar_t *filename,
-   const wchar_t *mode 
+   const wchar_t *mode
 );
 
 #define WAIT_OBJECT_0 0
 
 void * _aligned_malloc(
-    size_t size, 
+    size_t size,
     size_t alignment
 );
 
@@ -234,6 +242,10 @@ DWORD WINAPI WaitForMultipleObjects(
   _In_       DWORD  dwMilliseconds
 );
 
+HMODULE GetModuleHandleA(
+  LPCSTR lpModuleName
+);
+
 DWORD WINAPI GetModuleFileName(
   _In_opt_ HMODULE hModule,
   _Out_    LPTSTR  lpFilename,
@@ -243,41 +255,41 @@ DWORD WINAPI GetModuleFileName(
 errno_t strcat_s(
    char *strDestination,
    size_t numberOfElements,
-   const char *strSource 
+   const char *strSource
 );
 errno_t wcscat_s(
    wchar_t *strDestination,
    size_t numberOfElements,
-   const wchar_t *strSource 
+   const wchar_t *strSource
 );
 errno_t _mbscat_s(
    unsigned char *strDestination,
    size_t numberOfElements,
-   const unsigned char *strSource 
+   const unsigned char *strSource
 );
 
 #ifdef __cplusplus
 template <size_t size>
 errno_t strcat_s(
    char (&strDestination)[size],
-   const char *strSource 
+   const char *strSource
 ); // C++ only
 template <size_t size>
 errno_t wcscat_s(
    wchar_t (&strDestination)[size],
-   const wchar_t *strSource 
+   const wchar_t *strSource
 ); // C++ only
 template <size_t size>
 errno_t _mbscat_s(
    unsigned char (&strDestination)[size],
-   const unsigned char *strSource 
+   const unsigned char *strSource
 ); // C++ only
 #endif
 
 #define _MAX_PATH 1024
 
-wchar_t *_wgetenv( 
-   const wchar_t *varname 
+wchar_t *_wgetenv(
+   const wchar_t *varname
 );
 
 int _snprintf_s(
@@ -332,4 +344,18 @@ int _snwprintf_s(
 typedef int WORD;
 
 #define MAKEWORD(x, y) 0
+
+#define FAR
+
+
+
+DWORD FormatMessage(
+  DWORD   dwFlags,
+  LPCVOID lpSource,
+  DWORD   dwMessageId,
+  DWORD   dwLanguageId,
+  LPTSTR  lpBuffer,
+  DWORD   nSize,
+  va_list *Arguments
+);
 
